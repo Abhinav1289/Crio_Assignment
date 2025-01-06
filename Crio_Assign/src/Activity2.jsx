@@ -1,52 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, memo } from 'react';
-
-// Bulb Component
-const Bulb = ({ isActive }) => {
-  return (
-    <div
-      className={`w-6 h-6 rounded-full transition-all duration-300 ${
-        isActive ? 'bg-green-500' : 'bg-red-500'
-      }`}
-      style={{ boxShadow: isActive ? '0 0 20px rgba(0,255,0,0.7)' : '0 0 20px rgba(255,0,0,0.7)' }}
-    />
-  );
-};
-
-// Checkbox Component
-const Checkbox = ({ label, checked, onChange }) => {
-  console.log('Rendering Checkbox:', label);
-  return (
-    <div className="flex items-center gap-x-2">
-      <input
-        type="checkbox"
-        checked={checked}
-        className="cursor-pointer accent-blue-600"
-        onChange={onChange}
-      />
-      <label className="text-white text-sm font-medium">{label}</label>
-    </div>
-  );
-};
-
-// Slider Component
-const Slider = ({ label, value, onChange }) => {
-  console.log('Rendering Slider:', label);
-  return (
-    <div className="flex items-center justify-between">
-      <label htmlFor="slider" className="text-white text-sm font-medium">
-        {label}: {value}
-      </label>
-      <input
-        type="range"
-        min={6}
-        max={100}
-        value={value}
-        className="cursor-pointer w-full accent-blue-600"
-        onChange={onChange}
-      />
-    </div>
-  );
-};
+import Bulb from './components/Bulb';
+import Checkbox from './components/Checkbox';
+import Slider from './components/Slider';
 
 function Activity2() {
   const [hide, setHide] = useState(false);
@@ -70,7 +25,7 @@ function Activity2() {
       pass += str.charAt(char);
     }
     console.log("Function Created");
-    
+    setHide((prev) => !prev);
     setPassword(pass);
   }, []); // Memoize the function to prevent unnecessary re-creations
 
@@ -109,13 +64,15 @@ function Activity2() {
 
       {/* Bulb Indicators for function state */}
       <div className="flex justify-between mb-4">
-        <div className="flex items-center gap-x-2">
+        <div className="flex flex-col items-center gap-x-2">
           <Bulb isActive={functionChanged} /> {/* Left bulb shows function instance reuse */}
           <span className="text-white">Function Reuse</span>
+          <p className='text-sm italic text-white'>(Using useCallBack)</p>
         </div>
-        <div className="flex items-center gap-x-2">
+        <div className="flex flex-col items-center gap-x-2">
           <Bulb isActive={!functionChanged} /> {/* Right bulb shows if function was re-created */}
           <span className="text-white">Function Created</span>
+          <p className='text-sm italic text-white'>(Without useCallBack)</p>
         </div>
       </div>
 
@@ -158,12 +115,7 @@ function Activity2() {
       >
         Generate Password
       </button>
-      <button
-        onClick={() => setHide((prev) => !prev)}
-        className="mt-6 w-full bg-green-600 hover:bg-green-500 text-white text-lg font-medium py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
-      >
-        Check Function Instance
-      </button>
+    
     </div>
   );
 }
