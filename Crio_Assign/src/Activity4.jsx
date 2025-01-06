@@ -65,7 +65,6 @@ function Activity4() {
     <div className="w-full max-w-md mx-auto shadow-2xl rounded-lg px-6 py-6 my-8 bg-gradient-to-r from-gray-800 via-gray-900 to-black text-orange-400">
       <h1 className="text-white text-center text-3xl font-bold my-4">Password Generator</h1>
       
-      {/* Bulb Indicator for function change */}
       <div className="flex justify-between mb-4">
         <div className="flex flex-col items-center gap-x-2">
           <Bulb isActive={functionChanged} /> {/* Left bulb shows function instance reuse */}
